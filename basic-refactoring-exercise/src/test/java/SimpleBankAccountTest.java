@@ -46,7 +46,7 @@ class SimpleBankAccountTest {
     }
 
     @Test
-    void testWithdraw() {
+    void testWithdrawal() {
         final int expectedRemainingAmount = 30;
         bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
         bankAccount.withdraw(accountHolder.id(), WITHDRAWAL_AMOUNT);
@@ -54,9 +54,17 @@ class SimpleBankAccountTest {
     }
 
     @Test
-    void testWrongWithdraw() {
+    void testWrongWithdrawal() {
         bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
         bankAccount.withdraw(WRONG_USER_ID, WITHDRAWAL_AMOUNT);
+        assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
+    }
+
+    @Test
+    void testExceedingWithdrawal() {
+        final int withdrawalAmount = FIRST_DEPOSIT_AMOUNT + 1;
+        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
+        bankAccount.withdraw(accountHolder.id(), withdrawalAmount);
         assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
     }
 }
