@@ -49,6 +49,14 @@ abstract class AbstractBankAccountTest {
     }
 
     @Test
+    void testCannotDepositNullAmount() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.bankAccount.deposit(this.accountHolder.id(), 0)
+        );
+    }
+
+    @Test
     void testWrongDepositDoesNotHappen() {
         final double secondDepositAmount = 50.0;
         this.bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
@@ -66,6 +74,15 @@ abstract class AbstractBankAccountTest {
             () -> this.bankAccount.withdraw(this.accountHolder.id(), NEGATIVE_AMOUNT)
         );
     }
+
+    @Test
+    void testCannotWithdrawNullAmount() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.bankAccount.withdraw(this.accountHolder.id(), 0)
+        );
+    }
+
 
     @Test
     void testWrongWithdrawalDoesNotHappen() {

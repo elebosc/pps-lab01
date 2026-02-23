@@ -18,7 +18,7 @@ abstract class AbstractBankAccount implements BankAccount {
     }
 
     public void deposit(final int userID, final double amount) {
-        if (amount < 0) {
+        if (amount <= 0) {
             throw new IllegalArgumentException();
         }
         if (isUserTheAccountHolder(userID)) {
