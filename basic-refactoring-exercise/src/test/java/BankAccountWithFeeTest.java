@@ -1,14 +1,13 @@
 import example.model.AccountHolder;
 import example.model.BankAccount;
-import example.model.SimpleBankAccount;
+import example.model.BankAccountWithFee;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-/**
- * The test suite for testing the SimpleBankAccount implementation
- */
-class SimpleBankAccountTest {
+class BankAccountWithFeeTest {
     private static final int INITIAL_BALANCE = 0;
     private static final double FIRST_DEPOSIT_AMOUNT = 100.0;
     private static final double WITHDRAWAL_AMOUNT = 70.0;
@@ -24,7 +23,7 @@ class SimpleBankAccountTest {
         final String surname = "Rossi";
         final int id = 1;
         accountHolder = new AccountHolder(name, surname, id);
-        bankAccount = new SimpleBankAccount(accountHolder, INITIAL_BALANCE);
+        bankAccount = new BankAccountWithFee(accountHolder, INITIAL_BALANCE);
     }
 
     @Test
@@ -53,7 +52,7 @@ class SimpleBankAccountTest {
 
     @Test
     void testWithdrawalIsSuccessful() {
-        final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT;
+        final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - (WITHDRAWAL_AMOUNT + BankAccountWithFee.WITHDRAWAL_FEE);
         bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
         bankAccount.withdraw(accountHolder.id(), WITHDRAWAL_AMOUNT);
         assertEquals(expectedRemainingAmount, bankAccount.getBalance());
@@ -76,6 +75,13 @@ class SimpleBankAccountTest {
         final double withdrawalAmount = FIRST_DEPOSIT_AMOUNT + 1;
         bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
         bankAccount.withdraw(accountHolder.id(), withdrawalAmount);
+        assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
+    }
+
+    @Test
+    void testWithdrawalExceedingWithFeeDoesNotHappen() {
+        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
+        bankAccount.withdraw(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
         assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
     }
 }

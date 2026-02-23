@@ -5,40 +5,10 @@ package example.model;
  * In particular, a Simple Bank Account allows always the deposit
  * while the withdrawal is allowed only if the balance greater or equal the withdrawal amount
  */
-public class SimpleBankAccount implements BankAccount {
+public class SimpleBankAccount extends AbstractBankAccount {
 
-    private double balance;
-    private final AccountHolder holder;
-
-    public SimpleBankAccount(final AccountHolder holder, final double balance) {
-        this.holder = holder;
-        this.balance = balance;
+    public SimpleBankAccount(AccountHolder holder, double balance) {
+        super(holder, balance);
     }
 
-    @Override
-    public double getBalance() {
-        return this.balance;
-    }
-
-    @Override
-    public void deposit(final int userID, final double amount) {
-        if (isUserTheAccountHolder(userID)) {
-            this.balance = this.balance + amount;
-        }
-    }
-
-    @Override
-    public void withdraw(final int userID, final double amount) {
-        if (isUserTheAccountHolder(userID) && isWithdrawalAllowed(amount)) {
-            this.balance = this.balance - amount;
-        }
-    }
-
-    private boolean isWithdrawalAllowed(final double amount) {
-        return this.balance >= amount;
-    }
-
-    private boolean isUserTheAccountHolder(final int id) {
-        return this.holder.id() == id;
-    }
 }
