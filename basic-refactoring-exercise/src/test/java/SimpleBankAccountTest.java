@@ -1,81 +1,32 @@
-import example.model.AccountHolder;
-import example.model.BankAccount;
-import example.model.SimpleBankAccount;
+import example.model.api.AccountHolder;
+import example.model.api.BankAccount;
+import example.model.impl.SimpleBankAccount;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The test suite for testing the SimpleBankAccount implementation
  */
-class SimpleBankAccountTest {
-    private static final int INITIAL_BALANCE = 0;
-    private static final double FIRST_DEPOSIT_AMOUNT = 100.0;
-    private static final double WITHDRAWAL_AMOUNT = 70.0;
-    private static final int WRONG_USER_ID = 2;
-    private static final int NEGATIVE_AMOUNT = -1;
-
-    private AccountHolder accountHolder;
-    private BankAccount bankAccount;
+class SimpleBankAccountTest extends AbstractBankAccountTest {
 
     @BeforeEach
     void beforeEach() {
         final String name = "Mario";
         final String surname = "Rossi";
         final int id = 1;
-        accountHolder = new AccountHolder(name, surname, id);
-        bankAccount = new SimpleBankAccount(accountHolder, INITIAL_BALANCE);
-    }
-
-    @Test
-    void testInitialBalanceIsCorrect() {
-        assertEquals(INITIAL_BALANCE, bankAccount.getBalance());
-    }
-
-    @Test
-    void testDepositIsSuccessful() {
-        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
-        assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
-    }
-
-    @Test
-    void testCannotDepositNegativeAmounts() {
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(accountHolder.id(), NEGATIVE_AMOUNT));
-    }
-
-    @Test
-    void testWrongDepositDoesNotHappen() {
-        final double secondDepositAmount = 50.0;
-        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
-        bankAccount.deposit(WRONG_USER_ID, secondDepositAmount);
-        assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
+        final AccountHolder accountHolder = new AccountHolder(name, surname, id);
+        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, AbstractBankAccountTest.INITIAL_BALANCE);
+        super.setTestEnvironment(accountHolder, bankAccount);
     }
 
     @Test
     void testWithdrawalIsSuccessful() {
         final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT;
-        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
-        bankAccount.withdraw(accountHolder.id(), WITHDRAWAL_AMOUNT);
-        assertEquals(expectedRemainingAmount, bankAccount.getBalance());
+        super.getBankAccount().deposit(super.getAccountHolder().id(), FIRST_DEPOSIT_AMOUNT);
+        super.getBankAccount().withdraw(super.getAccountHolder().id(), WITHDRAWAL_AMOUNT);
+        assertEquals(expectedRemainingAmount, super.getBankAccount().getBalance());
     }
 
-    @Test
-    void testCannotWithdrawNegativeAmounts() {
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(accountHolder.id(), NEGATIVE_AMOUNT));
-    }
-
-    @Test
-    void testWrongWithdrawalDoesNotHappen() {
-        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
-        bankAccount.withdraw(WRONG_USER_ID, WITHDRAWAL_AMOUNT);
-        assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
-    }
-
-    @Test
-    void testExceedingWithdrawalDoesNotHappen() {
-        final double withdrawalAmount = FIRST_DEPOSIT_AMOUNT + 1;
-        bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
-        bankAccount.withdraw(accountHolder.id(), withdrawalAmount);
-        assertEquals(FIRST_DEPOSIT_AMOUNT, bankAccount.getBalance());
-    }
 }

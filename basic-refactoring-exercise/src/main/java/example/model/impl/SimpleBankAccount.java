@@ -1,4 +1,6 @@
-package example.model;
+package example.model.impl;
+
+import example.model.api.AccountHolder;
 
 /**
  * This class represent a particular instance of a BankAccount.
@@ -9,6 +11,14 @@ public class SimpleBankAccount extends AbstractBankAccount {
 
     public SimpleBankAccount(AccountHolder holder, double balance) {
         super(holder, balance);
+    }
+
+    @Override
+    public void withdraw(final int userID, final double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException();
+        }
+        super.withdraw(userID, amount);
     }
 
 }

@@ -1,4 +1,4 @@
-package example.model;
+package example.model.api;
 
 /**
  * This class represents the account holder concept.

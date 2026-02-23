@@ -1,4 +1,7 @@
-package example.model;
+package example.model.impl;
+
+import example.model.api.AccountHolder;
+import example.model.api.BankAccount;
 
 abstract class AbstractBankAccount implements BankAccount {
 
@@ -24,9 +27,6 @@ abstract class AbstractBankAccount implements BankAccount {
     }
 
     public void withdraw(final int userID, final double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException();
-        }
         if (isUserTheAccountHolder(userID) && isWithdrawalAllowed(amount)) {
             this.balance = this.balance - amount;
         }

@@ -1,4 +1,4 @@
-package example.model;
+package example.model.api;
 
 /**
  * This interface defines the concept of a very basic bank account.

@@ -1,8 +1,8 @@
 package example;
 
-import example.model.AccountHolder;
-import example.model.BankAccount;
-import example.model.SimpleBankAccount;
+import example.model.api.AccountHolder;
+import example.model.api.BankAccount;
+import example.model.impl.SimpleBankAccount;
 
 public class Main {
     public static void main(String[] args) {
