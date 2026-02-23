@@ -5,15 +5,21 @@ import example.model.BankAccount;
 import example.model.SimpleBankAccount;
 
 public class Main {
-
     public static void main(String[] args) {
-        final AccountHolder accountHolder = new AccountHolder("Mario", "Rossi", 1);
-        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, 0);
-        bankAccount.deposit(accountHolder.id(), 100);
+        final String name = "Mario";
+        final String surname = "Rossi";
+        final int id = 1;
+        final AccountHolder accountHolder = new AccountHolder(name, surname, id);
+        final int initialBalance = 0;
+        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, initialBalance);
+        final int firstDepositAmount = 100;
+        bankAccount.deposit(accountHolder.id(), firstDepositAmount);
         System.out.println("Current balance is " + bankAccount.getBalance());
-        bankAccount.withdraw(accountHolder.id(), 30);
+        final int firstWithdrawalAmount = 30;
+        bankAccount.withdraw(accountHolder.id(), firstWithdrawalAmount);
         System.out.println("Current balance is " + bankAccount.getBalance());
-        bankAccount.withdraw(accountHolder.id(), 80);
+        final int secondWithdrawalAmount = 80;
+        bankAccount.withdraw(accountHolder.id(), secondWithdrawalAmount);
         System.out.println("Current balance is " + bankAccount.getBalance());
     }
 }

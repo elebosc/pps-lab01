@@ -22,23 +22,23 @@ public class SimpleBankAccount implements BankAccount {
 
     @Override
     public void deposit(final int userID, final double amount) {
-        if (checkUser(userID)) {
-            this.balance += amount;
+        if (isUserTheAccountHolder(userID)) {
+            this.balance = this.balance + amount;
         }
     }
 
     @Override
     public void withdraw(final int userID, final double amount) {
-        if (checkUser(userID) && isWithdrawAllowed(amount)) {
-            this.balance -= amount;
+        if (isUserTheAccountHolder(userID) && isWithdrawalAllowed(amount)) {
+            this.balance = this.balance - amount;
         }
     }
 
-    private boolean isWithdrawAllowed(final double amount){
+    private boolean isWithdrawalAllowed(final double amount) {
         return this.balance >= amount;
     }
 
-    private boolean checkUser(final int id) {
+    private boolean isUserTheAccountHolder(final int id) {
         return this.holder.id() == id;
     }
 }
