@@ -1,4 +1,4 @@
-package tdd;
+package tdd.api;
 
 /**
  * Task 1 - TDD for Smart Door Lock
