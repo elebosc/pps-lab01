@@ -147,4 +147,12 @@ public class SmartDoorLockTest {
         assertThrows(IllegalArgumentException.class, () -> this.smartLock.setPin(NEGATIVE_PIN));
     }
 
+    @Test
+    public void testUnlockingWhenAlreadyUnlockedHasNoEffect() {
+        setPinAndLock();
+        this.smartLock.unlock(PIN);
+        this.smartLock.unlock(WRONG_PIN);
+        assertEquals(0, this.smartLock.getFailedAttempts());
+    }
+
 }
