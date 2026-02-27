@@ -16,9 +16,10 @@ class SimpleBankAccountTest extends AbstractBankAccountTest {
         final String name = "Mario";
         final String surname = "Rossi";
         final int id = 1;
+        final double initialBalance = 0;
         final AccountHolder accountHolder = new AccountHolder(name, surname, id);
-        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, AbstractBankAccountTest.INITIAL_BALANCE);
-        super.setTestEnvironment(accountHolder, bankAccount);
+        final BankAccount bankAccount = new SimpleBankAccount(accountHolder, initialBalance);
+        super.initTestEnvironment(accountHolder, bankAccount);
     }
 
     @Test

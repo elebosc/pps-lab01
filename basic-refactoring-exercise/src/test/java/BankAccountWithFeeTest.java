@@ -11,19 +11,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class BankAccountWithFeeTest extends AbstractBankAccountTest {
 
+    private static final double EXPECTED_FEE = 1;
+
     @BeforeEach
     void beforeEach() {
         final String name = "Mario";
         final String surname = "Rossi";
         final int id = 1;
+        final double initialBalance = 0;
         final AccountHolder accountHolder = new AccountHolder(name, surname, id);
-        final BankAccount bankAccount = new BankAccountWithFee(accountHolder, AbstractBankAccountTest.INITIAL_BALANCE);
-        super.setTestEnvironment(accountHolder, bankAccount);
+        final BankAccount bankAccount = new BankAccountWithFee(accountHolder, initialBalance);
+        super.initTestEnvironment(accountHolder, bankAccount);
     }
 
     @Test
     void testWithdrawalIsSuccessful() {
-        final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - (WITHDRAWAL_AMOUNT + BankAccountWithFee.WITHDRAWAL_FEE);
+        final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - (WITHDRAWAL_AMOUNT + EXPECTED_FEE);
         super.getBankAccount().deposit(super.getAccountHolder().id(), FIRST_DEPOSIT_AMOUNT);
         super.getBankAccount().withdraw(super.getAccountHolder().id(), WITHDRAWAL_AMOUNT);
         assertEquals(expectedRemainingAmount, super.getBankAccount().getBalance());

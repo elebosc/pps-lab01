@@ -7,16 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract class AbstractBankAccountTest {
 
-    protected static final int INITIAL_BALANCE = 0;
     protected static final double FIRST_DEPOSIT_AMOUNT = 100.0;
     protected static final double WITHDRAWAL_AMOUNT = 70.0;
     private static final int WRONG_USER_ID = 2;
-    private static final int NEGATIVE_AMOUNT = -1;
+    private static final double NEGATIVE_AMOUNT = -1.0;
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
 
-    protected void setTestEnvironment(AccountHolder accountHolder, BankAccount bankAccount) {
+    protected void initTestEnvironment(AccountHolder accountHolder, BankAccount bankAccount) {
         this.accountHolder = accountHolder;
         this.bankAccount = bankAccount;
     }
@@ -31,7 +30,7 @@ abstract class AbstractBankAccountTest {
 
     @Test
     void testInitialBalanceIsCorrect() {
-        assertEquals(INITIAL_BALANCE, this.bankAccount.getBalance());
+        assertEquals(0, this.bankAccount.getBalance());
     }
 
     @Test
@@ -41,7 +40,7 @@ abstract class AbstractBankAccountTest {
     }
 
     @Test
-    void testCannotDepositNegativeAmounts() {
+    void testCannotDepositNegativeAmount() {
         assertThrows(
             IllegalArgumentException.class,
             () -> this.bankAccount.deposit(this.accountHolder.id(), NEGATIVE_AMOUNT)
@@ -68,7 +67,7 @@ abstract class AbstractBankAccountTest {
     abstract void testWithdrawalIsSuccessful();
 
     @Test
-    void testCannotWithdrawNegativeAmounts() {
+    void testCannotWithdrawNegativeAmount() {
         assertThrows(
             IllegalArgumentException.class,
             () -> this.bankAccount.withdraw(this.accountHolder.id(), NEGATIVE_AMOUNT)
@@ -86,8 +85,9 @@ abstract class AbstractBankAccountTest {
 
     @Test
     void testWrongWithdrawalDoesNotHappen() {
+        final double withdrawalAmount = 70.0;
         this.bankAccount.deposit(accountHolder.id(), FIRST_DEPOSIT_AMOUNT);
-        this.bankAccount.withdraw(WRONG_USER_ID, WITHDRAWAL_AMOUNT);
+        this.bankAccount.withdraw(WRONG_USER_ID, withdrawalAmount);
         assertEquals(FIRST_DEPOSIT_AMOUNT, this.bankAccount.getBalance());
     }
 
