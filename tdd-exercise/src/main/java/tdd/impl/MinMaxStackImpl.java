@@ -5,6 +5,9 @@ import tdd.utils.MinMaxPair;
 
 import java.util.Stack;
 
+/**
+ * This class implements a min-max stack.
+ */
 public class MinMaxStackImpl implements MinMaxStack {
 
     private final Stack<Integer> stack;
@@ -50,11 +53,17 @@ public class MinMaxStackImpl implements MinMaxStack {
 
     @Override
     public int getMin() {
+        if (this.stack.isEmpty()) {
+            throw new IllegalStateException("The stack is empty.");
+        }
         return minMaxPairs.peek().min();
     }
 
     @Override
     public int getMax() {
+        if (this.stack.isEmpty()) {
+            throw new IllegalStateException("The stack is empty.");
+        }
         return minMaxPairs.peek().max();
     }
 

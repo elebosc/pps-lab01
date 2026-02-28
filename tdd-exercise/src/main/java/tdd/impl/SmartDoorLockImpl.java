@@ -2,6 +2,9 @@ package tdd.impl;
 
 import tdd.api.SmartDoorLock;
 
+/**
+ * This class implements a smar door lock
+ */
 public class SmartDoorLockImpl implements SmartDoorLock {
 
     private static final int MAX_ATTEMPTS = 3;
