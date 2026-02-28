@@ -33,7 +33,6 @@ public interface CircularQueue {
      * Checks if the queue is empty.
      *
      * @return True if the queue is empty, false otherwise.
-     * @throws IllegalStateException if the queue is empty.
      */
     boolean isEmpty();
 
@@ -48,6 +47,7 @@ public interface CircularQueue {
      * Gets the element at the front of the queue, which is the oldest element in the queue.
      *
      * @return The element at the front of the queue.
+     * @throws IllegalStateException if the queue is empty.
      */
     int dequeue();
 
