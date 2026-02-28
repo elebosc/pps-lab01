@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract class AbstractBankAccountTest {
 
     protected static final double FIRST_DEPOSIT_AMOUNT = 100.0;
-    protected static final double WITHDRAWAL_AMOUNT = 70.0;
     private static final int WRONG_USER_ID = 2;
     private static final double NEGATIVE_AMOUNT = -1.0;
 

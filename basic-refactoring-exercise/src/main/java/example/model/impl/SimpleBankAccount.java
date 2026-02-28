@@ -18,5 +18,4 @@ public class SimpleBankAccount extends AbstractBankAccount {
         return 0;
     }
 
-
 }

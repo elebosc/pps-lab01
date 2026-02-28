@@ -3,6 +3,9 @@ package example.model.impl;
 import example.model.api.AccountHolder;
 import example.model.api.BankAccount;
 
+/**
+ * This class represents an abstraction of the different types of bank account.
+ */
 abstract class AbstractBankAccount implements BankAccount {
 
     private double balance;

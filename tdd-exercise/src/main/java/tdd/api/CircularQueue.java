@@ -52,7 +52,7 @@ public interface CircularQueue {
     int dequeue();
 
     /**
-     * Retrives, but does not remove, the element at the front of the queue, which is the oldest element in the queue.
+     * Retrieves, but does not remove, the element at the front of the queue, which is the oldest element in the queue.
      *
      * @return The element at the front of the queue.
      * @throws IllegalStateException if the queue is empty.
@@ -60,7 +60,7 @@ public interface CircularQueue {
     int peekFront();
 
     /**
-     * Retrives, but does not remove, the element at the rear of the queue, which is the newest element in the queue.
+     * Retrieves, but does not remove, the element at the rear of the queue, which is the newest element in the queue.
      *
      * @return The element at the rear of the queue.
      * @throws IllegalStateException if the queue is empty.

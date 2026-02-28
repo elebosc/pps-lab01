@@ -24,9 +24,10 @@ class SimpleBankAccountTest extends AbstractBankAccountTest {
 
     @Test
     void testWithdrawalIsSuccessful() {
-        final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - WITHDRAWAL_AMOUNT;
+        final double withdrawalAmount = 70.0;
+        final double expectedRemainingAmount = FIRST_DEPOSIT_AMOUNT - withdrawalAmount;
         super.getBankAccount().deposit(super.getAccountHolder().id(), FIRST_DEPOSIT_AMOUNT);
-        super.getBankAccount().withdraw(super.getAccountHolder().id(), WITHDRAWAL_AMOUNT);
+        super.getBankAccount().withdraw(super.getAccountHolder().id(), withdrawalAmount);
         assertEquals(expectedRemainingAmount, super.getBankAccount().getBalance());
     }
 
