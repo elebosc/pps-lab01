@@ -3,7 +3,7 @@ package tdd.impl;
 import tdd.api.SmartDoorLock;
 
 /**
- * This class implements a smar door lock
+ * This class implements a smart door lock implementation.
  */
 public class SmartDoorLockImpl implements SmartDoorLock {
 
