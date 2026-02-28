@@ -7,35 +7,42 @@ import java.util.List;
 
 public class CircularQueueImpl implements CircularQueue {
 
-    private final List<Integer> queue;
-    private final int allocatedSize;
+    private final int[] queue;
+    private int actualSize;
+    private int front;
+    private int rear;
 
     public CircularQueueImpl(int size) {
-        this.queue = new ArrayList<>(size);
-        this.allocatedSize = size;
+        this.queue = new int[size];
+        this.actualSize = 0;
+        this.front = 0;
+        this.rear = 0;
     }
 
     @Override
     public int getAllocatedSize() {
-        return this.allocatedSize;
+        return this.queue.length;
     }
 
     @Override
     public int getActualSize() {
-        return this.queue.size();
+        return this.actualSize;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.queue.isEmpty();
+        return this.actualSize == 0;
     }
 
     @Override
     public void enqueue(int element) {
-        this.queue.add(element);
-        if (this.queue.size() > this.allocatedSize) {
-            this.queue.remove(0);
+        if (this.actualSize == this.getAllocatedSize()) {
+            this.front = (this.front + 1) % this.getAllocatedSize();
+            this.actualSize--;
         }
+        this.queue[this.rear] = element;
+        this.rear = (this.rear + 1) % this.getAllocatedSize();
+        this.actualSize++;
     }
 
     @Override
@@ -43,7 +50,10 @@ public class CircularQueueImpl implements CircularQueue {
         if (this.isEmpty()) {
             throw new IllegalStateException("The queue is empty.");
         }
-        return this.queue.remove(0);
+        int element = this.queue[this.front];
+        this.front = (this.front + 1) % this.getAllocatedSize();
+        this.actualSize--;
+        return element;
     }
 
     @Override
@@ -51,7 +61,7 @@ public class CircularQueueImpl implements CircularQueue {
         if (this.isEmpty()) {
             throw new IllegalStateException("The queue is empty.");
         }
-        return this.queue.get(0);
+        return this.queue[this.front];
     }
 
     @Override
@@ -59,7 +69,8 @@ public class CircularQueueImpl implements CircularQueue {
         if (this.isEmpty()) {
             throw new IllegalStateException("The queue is empty.");
         }
-        return this.queue.get(this.getActualSize() - 1);
+        final int index = (this.rear - 1 + this.getAllocatedSize()) % this.getAllocatedSize();
+        return this.queue[index];
     }
 
 }
