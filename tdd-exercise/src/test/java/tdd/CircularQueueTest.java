@@ -75,7 +75,7 @@ public class CircularQueueTest {
     }
 
     @Test
-    public void testPeekFrontDoesNotRemoveTheElement() {
+    public void testFrontPeekDoesNotRemoveTheElement() {
         final int element = 1;
         final int expectedSize = 1;
         this.queue.enqueue(element);
@@ -84,7 +84,7 @@ public class CircularQueueTest {
     }
 
     @Test
-    public void testPeekRearDoesNotRemoveTheElement() {
+    public void testRearPeekDoesNotRemoveTheElement() {
         final int element = 1;
         final int expectedSize = 1;
         this.queue.enqueue(element);
@@ -120,6 +120,16 @@ public class CircularQueueTest {
     @Test
     public void testDequeueFailsIfQueueIsEmpty() {
         assertThrows(IllegalStateException.class, () -> this.queue.dequeue());
+    }
+
+    @Test
+    public void testFrontPeekFailsIfQueueIsEmpty() {
+        assertThrows(IllegalStateException.class, () -> this.queue.peekFront());
+    }
+
+    @Test
+    public void testRearPeekFailsIfQueueIsEmpty() {
+        assertThrows(IllegalStateException.class, () -> this.queue.peekRear());
     }
 
 }

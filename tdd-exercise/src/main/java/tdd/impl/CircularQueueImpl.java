@@ -26,16 +26,6 @@ public class CircularQueueImpl implements CircularQueue {
     }
 
     @Override
-    public int peekFront() {
-        return this.queue.get(0);
-    }
-
-    @Override
-    public int peekRear() {
-        return this.queue.get(this.getActualSize() - 1);
-    }
-
-    @Override
     public boolean isEmpty() {
         return this.queue.isEmpty();
     }
@@ -54,6 +44,22 @@ public class CircularQueueImpl implements CircularQueue {
             throw new IllegalStateException("The queue is empty.");
         }
         return this.queue.remove(0);
+    }
+
+    @Override
+    public int peekFront() {
+        if (this.isEmpty()) {
+            throw new IllegalStateException("The queue is empty.");
+        }
+        return this.queue.get(0);
+    }
+
+    @Override
+    public int peekRear() {
+        if (this.isEmpty()) {
+            throw new IllegalStateException("The queue is empty.");
+        }
+        return this.queue.get(this.getActualSize() - 1);
     }
 
 }

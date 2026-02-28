@@ -15,17 +15,56 @@ package tdd.api;
  */
 public interface CircularQueue {
 
-    boolean isEmpty();
-
-    void enqueue(int element);
-
-    int dequeue();
-
+    /**
+     * Gets the capacity set for the queue.
+     *
+     * @return The allocated size of the queue.
+     */
     int getAllocatedSize();
 
+    /**
+     * Gets the number of elements currently in the queue.
+     *
+     * @return The actual size of the queue.
+     */
     int getActualSize();
 
+    /**
+     * Checks if the queue is empty.
+     *
+     * @return True if the queue is empty, false otherwise.
+     * @throws IllegalStateException if the queue is empty.
+     */
+    boolean isEmpty();
+
+    /**
+     * Adds the passed element at the rear of the queue.
+     *
+     * @param element The element to enqueue.
+     */
+    void enqueue(int element);
+
+    /**
+     * Gets the element at the front of the queue, which is the oldest element in the queue.
+     *
+     * @return The element at the front of the queue.
+     */
+    int dequeue();
+
+    /**
+     * Retrives, but does not remove, the element at the front of the queue, which is the oldest element in the queue.
+     *
+     * @return The element at the front of the queue.
+     * @throws IllegalStateException if the queue is empty.
+     */
     int peekFront();
 
+    /**
+     * Retrives, but does not remove, the element at the rear of the queue, which is the newest element in the queue.
+     *
+     * @return The element at the rear of the queue.
+     * @throws IllegalStateException if the queue is empty.
+     */
     int peekRear();
+
 }
