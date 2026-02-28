@@ -2,9 +2,6 @@ package tdd.impl;
 
 import tdd.api.CircularQueue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CircularQueueImpl implements CircularQueue {
 
     private final int[] queue;
